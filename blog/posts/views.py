@@ -8,5 +8,5 @@ logger = logging.getLogger(__name__)
 
 def posts_index(request):
     post_title = request.GET.get("title", "First title")
-    posts = Post.objects.filter(author__username=post_title)
+    posts = Post.objects.filter(title=post_title)
     return HttpResponse(posts)
