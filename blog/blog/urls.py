@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from homework.views import homework_index
-from posts.views import posts_index
+from posts.views import posts_index, posts_index_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', posts_index),
-    path('homework/', homework_index)
+    path('homework/', homework_index),
+    path('posts_index_user/', posts_index_user),
 ]
