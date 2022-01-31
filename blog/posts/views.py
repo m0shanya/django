@@ -15,8 +15,7 @@ def posts_index(request):
 
 
 def posts_index_user(request):
-    name = "m0shanya"
-    user = User.objects.get(username=name)
+    user = User.objects.get(id=request.GET.get("author_id", 1))
     posts = Post.objects.filter(author=user)
     out = ""
     for post in posts:
