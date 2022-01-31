@@ -22,6 +22,7 @@ def posts_index_user(request):
         out += f"<div style='border: 1px solid black'>"
         out += f"<h2> Author: {post.author}</h2><br>"
         out += f"<h2> Title: {post.title}</h2><br>"
+        out += f"<h2> Image: {post.image}</h2><br>"
         out += f"<h2> Text: {post.text}</h2><br>"
         out += f"<div> Created at: {post.created_at}</h2><br>"
         out += f"</div>"
