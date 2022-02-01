@@ -17,6 +17,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 
+from blog.views import register
 from homework.views import homework_index
 from posts.views import posts_index, posts_index_user
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', posts_index),
     path('homework/', homework_index),
     path('posts_index_user/', posts_index_user),
+    path('register/', register),
 ]
 
 if settings.DEBUG:
