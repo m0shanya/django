@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from blog.views import register
 from homework.views import homework_index
@@ -27,6 +27,7 @@ urlpatterns = [
     path('homework/', homework_index),
     path('posts_index_user/', posts_index_user),
     path('register/', register),
+    path("api/", include("api.urls", namespace="api")),
 ]
 
 if settings.DEBUG:
