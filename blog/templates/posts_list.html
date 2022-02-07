@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        {% include "post.html" %}
+    {% endfor %}
+    {% include "add_post.html" %}
+
+      <div class="container notes">
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-4 note-item">
+          <div class="note">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="post-img-top" alt="{{ post.title }}">
+            {% endif %}
+            <div class="post-body">
+              <h5 class="post-title">{{ post.title }}</h5>
+              <p class="post-text">{{ post.text }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
