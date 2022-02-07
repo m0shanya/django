@@ -3,16 +3,13 @@
 {% block title %}Main Page{% endblock %}
 
 {% block content %}
-    {% for post in posts %}
-        {% include "post.html" %}
-    {% endfor %}
     {% include "add_post.html" %}
 
       <div class="container notes">
     <div class="row">
       {% for post in posts %}
         <div class="col-4 note-item">
-          <div class="note">
+          <div class="post">
             {% if post.image %}
             <img src="{{ post.image.url }}" class="post-img-top" alt="{{ post.title }}">
             {% endif %}

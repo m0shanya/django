@@ -12,14 +12,23 @@ logger = logging.getLogger(__name__)
 
 
 def posts_index(request):
-    """post_title = request.GET.get("title", "First title")
-    posts = Post.objects.filter(title=post_title)
-    return HttpResponse(posts)"""
-    if request.user.is_anonymous:
+    posts = []
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = AddPostForm(request.POST)
+            if form.is_valid():
+                logger.info(form.cleaned_data)
+                post = Post.objects.create(author=request.user, **form.cleaned_data)
+                post.save()
+                return redirect('/')
+        else:
+            form = AddPostForm()
+        posts = Post.objects.order_by("-created_at")
+        logger.info(f"Posts of all users")
+        return render(request, "posts_list.html", {"posts": posts, "form": form})
+    else:
+        logger.info(request, f"You don't logIn")
         return redirect('/login/')
-    posts = Post.objects.order_by("-created_at")
-    logger.info(f"Posts of all users")
-    return render(request, "posts_list.html", {"posts": posts})
 
 
 def posts_index_user(request):
