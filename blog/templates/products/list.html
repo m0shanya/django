@@ -1,19 +1,16 @@
 {% extends "base.html" %}
-
-{% block title %}Main Page{% endblock %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-      <div class="container notes">
+  <h1>Products</h1>
+  <div class="container products">
     <div class="row">
-      {% for prod in products %}
-        <div class="col-4 note-item">
-          <div class="prod">
-            {% if prod.image %}
-            <img src="{{ prod.image.url }}" class="prod-img-top" alt="{{ prod.title }}">
-            {% endif %}
-            <div class="prod-body">
-              <h5 class="prod-title">{{ prod.title }}</h5>
-              <p class="prod-text">{{ prod.text }}</p>
+      {% for product in products %}
+        <div class="col-4 post-item">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="card-cost">Cost: {{ product.cost }}</p>
             </div>
           </div>
         </div>

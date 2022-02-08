@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from homework.models import Profile
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "age",  "created_at")
+    fields = ("user", "age", "created_at")
+    readonly_fields = ("created_at",)
+    search_fields = ("age", "created_at")
