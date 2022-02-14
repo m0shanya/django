@@ -25,7 +25,7 @@ def posts_index(request):
             form = AddPostForm()
         posts = Post.objects.order_by("-created_at")
         logger.info(f"Posts of all users")
-        return render(request, "posts_list.html", {"posts": posts, "form": form})
+        return render(request, "posts/posts_list.html", {"posts": posts, "form": form})
     else:
         logger.info(request, f"You don't logIn")
         return redirect('/login/')
@@ -57,7 +57,7 @@ def add_post(request):
                 return redirect('/', )
         else:
             form = AddPostForm()
-        return render(request, 'add_post.html', {'form': form})
+        return render(request, 'posts/add_post.html', {'form': form})
     else:
         return redirect('/login/', )
 
@@ -79,11 +79,11 @@ def user_login(request):
                 return HttpResponse('Invalid login')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'posts/login.html', {'form': form})
 
 
 def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect('/', )
-    return render(request, "logout.html",)
+    return render(request, "posts/logout.html", )

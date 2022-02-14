@@ -1,4 +1,21 @@
 body {
-    background-color: darkgray;
+    background-color: #cecece;
 }
 
+.posts .post-item {
+    margin-bottom: 15px;
+}
+
+.post-details .text {
+    white-space: pre-line;
+}
+
+.image-container {
+    max-height: 150px;
+    text-align: center;
+}
+
+.image-container img {
+    max-height: 150px;
+    width: auto;
+}

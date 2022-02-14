@@ -3,6 +3,8 @@
 
 venv/
 
+media/
+
 __pycahe__/
 *.py[cod]
 *&py.class

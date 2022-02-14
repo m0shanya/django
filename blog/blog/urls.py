@@ -20,17 +20,20 @@ from django.urls import path, include
 from blog.views import register
 from homework.views import homework_index, profile_index
 from posts.views import posts_index, posts_index_user, add_post, user_login, logout_view
-from shop.views import prod_list
+from shop.views import prod_list, product_details_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', posts_index),
+    path('', posts_index, name="home"),
     path('homework/', homework_index),
     path('profile/', profile_index),
     path('posts_index_user/', posts_index_user),
     path('register/', register),
     path('add/', add_post),
-    path('prod/', prod_list),
+    path('shop/', prod_list, name="product_list"),
+    path(
+        "product/<int:product_id>/", product_details_view, name="product_details_view"
+    ),
     path('login/', user_login, name='login'),
     path('logout/', logout_view, name='logout'),
     path("api/", include("api.urls", namespace="api")),
