@@ -2,6 +2,9 @@ import logging
 from pathlib import Path
 from django.core.management.base import BaseCommand
 
+from shop.tasks import run_oma_spider
+
+"""
 import requests
 from django.conf import settings
 from shop.models import Product
@@ -10,6 +13,7 @@ from scrapy import signals
 from scrapy.signalmanager import dispatcher
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+"""
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +23,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        def crawler_results(signal, sender, item, response, spider):
+        """def crawler_results(signal, sender, item, response, spider):
             item["cost"] = int(item["cost"].split(",")[0])
             if item["image"]:
                 response = requests.get(item["image"])
@@ -34,4 +38,5 @@ class Command(BaseCommand):
         process = CrawlerProcess(get_project_settings())
         process.crawl(OmaSpider)
         process.start()
-
+"""
+        run_oma_spider.delay()

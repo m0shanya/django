@@ -23,6 +23,7 @@ from posts.views import posts_index, posts_index_user, add_post, user_login, log
 from shop.views import prod_list, product_details_view
 
 urlpatterns = [
+    path("admin/django-rq/", include("django_rq.urls")),
     path('admin/', admin.site.urls),
     path('', posts_index, name="home"),
     path('homework/', homework_index),

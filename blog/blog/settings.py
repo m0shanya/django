@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_rq",
     "rest_framework",
     'crispy_forms',
     'crispy_bootstrap5',
@@ -89,6 +90,15 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": 5432,
     }
+}
+
+RQ_QUEUES = {
+    "default": {
+        "HOST": "localhost",
+        "PORT": 6379,
+        "DB": 0,
+        "DEFAULT_TIMEOUT": 360,
+    },
 }
 
 # Password validation
