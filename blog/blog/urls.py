@@ -20,7 +20,7 @@ from django.urls import path, include
 from blog.views import register
 from homework.views import homework_index, profile_index
 from posts.views import posts_index, posts_index_user, add_post, user_login, logout_view
-from shop.views import prod_list, product_details_view
+from shop.views import prod_list, product_details_view, currency_converter
 
 urlpatterns = [
     path("admin/django-rq/", include("django_rq.urls")),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('logout/', logout_view, name='logout'),
     path("api/", include("api.urls", namespace="api")),
+    path("currencyconverter/", currency_converter),
 ]
 
 if settings.DEBUG:
