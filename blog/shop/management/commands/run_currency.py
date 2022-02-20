@@ -11,4 +11,4 @@ class Command(BaseCommand):
     help = "Run currency converter"
 
     def handle(self, *args, **options):
-        currency_converter()
+        currency_converter.delay()

@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import xml.etree.ElementTree as et
 from dateutil.parser import parse
+from django.db.models import F
 
 import requests
 from django.conf import settings
@@ -61,10 +62,9 @@ def currency_converter():
     }
 
     response = requests.get(url, params)
+    logger.info(response)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # get the last updated time
-    price_datetime = parse(soup.find_all("span", attrs={"class": "ratesTimestamp"})[1].text)
     # get the exchange rates tables
     exchange_tables = soup.find_all("table")
     exchange_rates = {}
@@ -77,4 +77,5 @@ def currency_converter():
                 # get the exchange rate
                 exchange_rate = float(tds[1].text)
                 exchange_rates[currency] = exchange_rate
-    return price_datetime, exchange_rates
+                Product.objects.all().update(cost_usd=F('cost') / exchange_rates)
+    return exchange_rates
