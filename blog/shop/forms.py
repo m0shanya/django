@@ -36,3 +36,4 @@ class PurchasesFiltersForm(forms.Form):
         ),
         required=False,
     )
+

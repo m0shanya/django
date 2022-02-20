@@ -38,7 +38,6 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('logout/', logout_view, name='logout'),
     path("api/", include("api.urls", namespace="api")),
-    path("currencyconverter/", currency_converter),
 ]
 
 if settings.DEBUG:

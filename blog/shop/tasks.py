@@ -1,6 +1,11 @@
 import logging
 from pathlib import Path
 from time import sleep
+from lxml import etree
+from bs4 import BeautifulSoup
+import pandas as pd
+import xml.etree.ElementTree as et
+from dateutil.parser import parse
 
 import requests
 from django.conf import settings
@@ -46,3 +51,30 @@ def run_oma_spider():
     process = CrawlerProcess(get_project_settings())
     process.crawl(OmaSpider)
     process.start()
+
+
+@job
+def currency_converter():
+    url = 'https://free.currconv.com/api/v7/convert?q=USD_PHP,PHP_USD&compact=ultra&apiKey=5c795253873b5e4ae9bd'
+    params = {
+        "USD_PHP": 51.440375
+    }
+
+    response = requests.get(url, params)
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # get the last updated time
+    price_datetime = parse(soup.find_all("span", attrs={"class": "ratesTimestamp"})[1].text)
+    # get the exchange rates tables
+    exchange_tables = soup.find_all("table")
+    exchange_rates = {}
+    for exchange_table in exchange_tables:
+        for tr in exchange_table.find_all("tr"):
+            # for each row in the table
+            tds = tr.find_all("td")
+            if tds:
+                currency = tds[0].text
+                # get the exchange rate
+                exchange_rate = float(tds[1].text)
+                exchange_rates[currency] = exchange_rate
+    return price_datetime, exchange_rates
