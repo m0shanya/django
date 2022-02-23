@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_rq",
     "rest_framework",
+    "rest_framework.authtoken",
     'crispy_forms',
     'crispy_bootstrap5',
     'posts',
@@ -167,4 +168,14 @@ LOGGING = {
         'handlers': ['console'],
         'level': 'ERROR',
     }
+}
+
+
+REST_FRAMEWORK = {
+   "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+   "DEFAULT_AUTHENTICATION_CLASSES": [
+       "rest_framework.authentication.BasicAuthentication",
+       "rest_framework.authentication.SessionAuthentication",
+   ],
+   "PAGE_SIZE": 10,
 }
