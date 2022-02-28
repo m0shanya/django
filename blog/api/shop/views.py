@@ -1,3 +1,5 @@
+from rest_framework.exceptions import NotFound
+
 from shop.models import Purchase, Product
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -30,13 +32,15 @@ class PurchaseCreateView(CreateAPIView):
     serializer_class = ShopModelSerializer
     permission_classes = []
 
-    def perform_create(self, serializer):
-        user = User(
-            username=serializer.validated_data["email"],
-            email=serializer.validated_data["email"],
-        )
-        product = Product(
-            id=serializer.validated_data["product"]
-        )
-        count = serializer.validated_data["count"]
-        Purchase.objects.create(user=user, product=product, count=count)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.POST)
+        product_id = kwargs.get("product_id")
+        if not product_id:
+            raise NotFound
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            raise NotFound
+        serializer.is_valid(data=request.POST)
+        Purchase.objects.create(user=request.user, product=product, count=serializer.validated_data["count"])
+        return Response(status=status.HTTP_201_CREATED)

@@ -19,3 +19,7 @@ class PurchaseSerializer(serializers.Serializer):
     email = serializers.EmailField()
     product = serializers.IntegerField()
     count = serializers.IntegerField()
+
+
+class PurchaseCreateSerializer(serializers.Serializer):
+    count = serializers.IntegerField(min_value=1)
