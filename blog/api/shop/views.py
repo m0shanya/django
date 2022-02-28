@@ -2,18 +2,14 @@ from django.db.models import Sum, F
 from rest_framework.exceptions import NotFound
 
 from shop.models import Purchase, Product
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from rest_framework import status, viewsets
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.mixins import RetrieveModelMixin, ListModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from api.users.serializers import UserModelSerializer, UserSerializer
-from api.shop.serializers import ShopModelSerializer, ProductModelSerializer, \
-    ProductFiltersSerializer
+from api.shop.serializers import ShopModelSerializer, ProductModelSerializer, ProductFiltersSerializer
 
 
 class PurchaseViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
